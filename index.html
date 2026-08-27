@@ -17,7 +17,6 @@
     --color-blue: #70ACEB;
     --color-yellow: #F5C251;
     --color-red: #E97787;
-    --sidebar-width: 220px;
   }
 
   /* ── RESET ── */
@@ -32,64 +31,8 @@
     min-height: 100vh;
   }
 
-  /* ── SIDEBAR ── */
-  .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: var(--sidebar-width);
-    padding: 40px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 10;
-    border-right: 1px solid var(--text-ghost);
-  }
-
-  .sidebar-logo {
-    position: absolute;
-    top: 40px;
-    left: 30px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-    line-height: 1.4;
-  }
-
-  .sidebar-logo:hover { color: var(--text-visible); }
-
-  .sidebar-card {
-    padding: 10px 0;
-    cursor: pointer;
-    border-bottom: 1px solid var(--text-ghost);
-    transition: all 0.3s ease-out;
-    text-align: left;
-    text-decoration: none;
-    display: block;
-  }
-
-  .sidebar-card:first-of-type {
-    border-top: 1px solid var(--text-ghost);
-  }
-
-  .sidebar-label {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--text-muted);
-    transition: color 0.3s ease-out;
-  }
-
-  .sidebar-card:hover .sidebar-label,
-  .sidebar-card.active .sidebar-label {
-    color: var(--text-bright);
-  }
-
   /* ── CONTENT ── */
   #content {
-    margin-left: var(--sidebar-width);
     overflow-y: auto;
     height: 100vh;
   }
@@ -134,41 +77,41 @@
   }
 
 
-  .hero-ctas {
+  .hero-proof-strip {
+    margin: 32px 0 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-top: 40px;
+    gap: 14px;
   }
 
-  .hero-cta-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .hero-cta-row a {
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding: 13px 28px;
-    margin: 0;
-    width: 160px;
-    text-align: center;
-  }
-
-  .hero-cta-quote {
-    font-size: 13px;
+  .hero-quote {
+    font-size: 14px;
     color: var(--text-muted);
-    line-height: 1.4;
+    line-height: 1.5;
+    padding-left: 14px;
+    border-left: 1px solid var(--text-ghost);
     font-style: italic;
   }
 
-  .hero-cta-quote cite {
+  .hero-quote cite {
     display: block;
-    font-size: 11px;
+    font-size: 12px;
     font-style: normal;
     color: var(--text-subtle);
-    margin-top: 3px;
+    margin-top: 4px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .hero-ctas a {
+    white-space: nowrap;
+    padding: 13px 28px;
+    margin: 0;
   }
 
   /* ── TYPOGRAPHY ── */
@@ -474,10 +417,7 @@
 
   /* ── MOBILE ── */
   @media (max-width: 640px) {
-    .sidebar { display: none; }
-
     #content {
-      margin-left: 0;
       height: auto;
       overflow-y: visible;
     }
@@ -527,17 +467,6 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <a href="#hero" class="sidebar-logo">Aleksander<br>Gąssowski</a>
-  <nav>
-    <a href="#story" class="sidebar-card"><span class="sidebar-label">Story</span></a>
-    <a href="#ground" class="sidebar-card"><span class="sidebar-label">Ground</span></a>
-    <a href="#how" class="sidebar-card"><span class="sidebar-label">How we move</span></a>
-    <a href="#start" class="sidebar-card"><span class="sidebar-label">Start</span></a>
-  </nav>
-</aside>
-
 <!-- CONTENT -->
 <div id="content">
 
@@ -550,21 +479,13 @@
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>I help you draw the map — of yourself, or of your team</span></div>
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>And find the next step small enough to actually take.</span></div>
       </div>
+      <div class="hero-proof-strip">
+        <div class="hero-quote">"Before this, I was going full speed — just sitting on the roof of the car instead of behind the wheel."<cite>— Reidar, individual coaching</cite></div>
+        <div class="hero-quote">"The courage to cut through the noise and focus on what actually mattered."<cite>— Kriti Paliwal, Data Science Manager, Securitas</cite></div>
+      </div>
       <div class="hero-ctas">
-        <div class="hero-cta-row">
-          <a href="#start" class="btn-primary">For myself</a>
-          <div class="hero-cta-quote">
-            "Before this, I was going full speed — just sitting on the roof of the car instead of behind the wheel."
-            <cite>— Reidar, individual coaching</cite>
-          </div>
-        </div>
-        <div class="hero-cta-row">
-          <a href="#start" class="btn-ghost">For my team</a>
-          <div class="hero-cta-quote">
-            "The courage to cut through the noise and focus on what actually mattered."
-            <cite>— Kriti Paliwal, Data Science Manager, Securitas</cite>
-          </div>
-        </div>
+        <a href="#start" class="btn-primary">For myself</a>
+        <a href="#start" class="btn-ghost">For my team</a>
       </div>
     </div>
     <div class="hero-photo">
@@ -757,27 +678,6 @@
 </div><!-- /content -->
 
 <script>
-  const sectionIds = ['hero', 'story', 'ground', 'how', 'start'];
-  const sidebarCards = document.querySelectorAll('.sidebar-card');
-  const content = document.getElementById('content');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        sidebarCards.forEach(card => {
-          card.classList.toggle('active', card.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { root: content, rootMargin: '-40% 0px -55% 0px' });
-
-  sectionIds.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  // Smooth scroll within #content
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
