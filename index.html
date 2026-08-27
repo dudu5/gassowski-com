@@ -19,8 +19,6 @@
     --color-red: #E97787;
   }
 
-  /* ── DEBUG ── */
-  #content, .section-wrap, footer { outline: 1px solid rgba(97,204,186,0.4); }
 
   /* ── RESET ── */
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,21 +54,26 @@
     position: relative;
   }
 
+  @keyframes pulse-hint {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
   .hero-scroll-hint {
     position: absolute;
     bottom: 32px;
     left: max(407px, calc(50% - 253px));
     font-size: 13px;
-    color: var(--text-subtle);
+    color: var(--color-teal);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     white-space: nowrap;
-    transition: color 0.2s;
+    animation: pulse-hint 2.4s ease-in-out infinite;
   }
 
-  .hero-scroll-hint:hover { color: var(--text-muted); }
+  .hero-scroll-hint:hover { opacity: 1; animation: none; }
   .hero-scroll-mobile { display: none; }
 
   .hero-inner {
@@ -467,7 +470,6 @@
 
   .ba-block {
     padding: 40px 0;
-    outline: 1px solid rgba(97,204,186,0.4);
   }
 
   .ba-block + .ba-block {
@@ -530,7 +532,7 @@
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     opacity: 0;
     transition: opacity 0.4s ease;
   }
@@ -545,9 +547,15 @@
     color: var(--text-subtle);
     text-decoration: none;
     transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
   }
+  .page-nav a svg { flex-shrink: 0; }
 
   .page-nav a:hover { color: var(--text-muted); }
+  .page-nav a.active { color: var(--text-bright); }
+  .page-nav a.active svg { color: var(--color-teal); }
 
   #story > p { font-size: 15px; color: var(--text-muted); }
 
@@ -584,17 +592,19 @@
 
   .story-item summary::-webkit-details-marker { display: none; }
 
-  .story-item summary::after {
+  .story-item summary::before {
     content: '+';
     font-size: 20px;
     font-weight: 300;
     color: var(--color-teal);
     flex-shrink: 0;
-    margin-left: auto;
+    width: 20px;
+    text-align: center;
     transition: transform 0.25s;
+    display: inline-block;
   }
 
-  .story-item[open] summary::after {
+  .story-item[open] summary::before {
     transform: rotate(45deg);
   }
 
@@ -605,9 +615,33 @@
     color: var(--text-muted);
     line-height: 1.7;
     margin-bottom: 16px;
+    padding-left: 34px;
   }
 
   .story-item p:last-child { margin-bottom: 20px; }
+
+  /* ── IMAGE LIGHTBOX ── */
+  .expandable-img { cursor: zoom-in; }
+
+  #img-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+
+  #img-lightbox.open { display: flex; }
+
+  #img-lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    cursor: zoom-out;
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -713,7 +747,7 @@
       <h1>Stuck is mostly <span style="text-decoration:underline; text-decoration-color:rgba(255,255,255,0.25); text-underline-offset:6px; text-decoration-thickness:2px;">not</span> a lack of effort.<br> It's a missing picture.</h1>
       <div class="hero-bullets" style="display:flex; flex-direction:column; gap:4px; margin-bottom:0; margin-left:24px;">
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Busy doesn't mean moving. Active doesn't mean aligned.</span></div>
-        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>We draw a picture you can stand on — of you, or of the team.</span></div>
+        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>We draw a map you can navigate from — of you, or of the team.</span></div>
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>And find the next step small enough to actually take.</span></div>
       </div>
       <div class="hero-proof-strip">
@@ -736,7 +770,7 @@
 
   <!-- 2. HOW IT WORKS -->
   <div id="how-it-works" class="section-wrap" style="max-width: 900px; padding-left: 0; padding-right: 0;">
-    <div class="before-after">
+    <div id="before-after" class="before-after">
 
       <!-- Individual -->
       <div class="ba-block">
@@ -791,18 +825,15 @@
     <div style="padding: 80px 60px 24px;">
       <div class="section-label">How it works</div>
       <h2>2 coordinates and a step small enough to take.</h2>
-      <p style="font-size:17px; font-weight:500; color:var(--text-bright); margin-bottom:12px;">First we get it out.</p>
-      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">What's inside — said, drawn, shared — so you can see where you are, as well as where you want to go.</p>
-      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">That pair is the frame. Without it, focus is just another "should."</p>
+      <div class="beat"><div class="beat-num">01</div><div class="beat-text"><span class="beat-headline">First we get it out.</span><em>What's inside — said, drawn, shared — so you can see where you are, as well as where you want to go.<br><br>That pair is the frame. Without it, focus is just another "should."</em></div></div>
     </div>
-    <img src="Images/2_coordinates.svg" alt="2 coordinates" style="width:100%; display:block; opacity: 0.9;">
+    <img src="Images/2_coordinates.svg" alt="2 coordinates" class="expandable-img" style="width:100%; display:block; opacity: 0.9;">
     <div style="padding: 80px 60px 24px;">
-      <p style="font-size:17px; font-weight:500; color:var(--text-bright); margin-bottom:12px;">Then a small move inside that frame.</p>
-      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">Look on purpose. Let what happens update the map.</p>
-      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">Watching with a defined focus is a move. You don't have to have changed. You have to know what you're looking for.</p>
+      <div class="beat"><div class="beat-num">02</div><div class="beat-text"><span class="beat-headline">Then a small move inside that frame.</span><em>Look on purpose. Let what happens update the map.<br><br>Watching with a defined focus is a move. You don't have to have changed. You have to know what you're looking for.</em></div></div>
     </div>
-    <img src="Images/The spiral loop.svg" alt="The spiral loop" style="width:100%; display:block; opacity: 0.9;">
+    <img src="Images/The spiral loop.svg" alt="The spiral loop" class="expandable-img" style="width:100%; display:block; opacity: 0.9;">
     <div style="padding: 80px 60px 0;">
+      <div class="hero-quote" style="margin-bottom:32px;">"His framework is a compass in the background, not a rigid system to conform to. We map out where I am, where I want to go, and what small steps will take me closer — and those steps incrementally diffuse the fog of thoughts into an emerging clear path."<cite>Alok, individual coaching</cite></div>
       <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">This isn't something I read. It's what learning to navigate myself — and to lead teams — was actually about.</p>
     </div>
   </div>
@@ -862,39 +893,41 @@
   <hr class="section-divider">
 
   <!-- STORY SLIDES -->
-  <div class="section-wrap" style="padding-top: 60px; padding-bottom: 60px;">
+  <div id="territory" class="section-wrap" style="padding-top: 60px; padding-bottom: 60px;">
 
     <!-- Slide 1 -->
     <div style="margin-bottom: 64px;">
       <div class="section-label">The Territory</div>
       <h2>Ground</h2>
-      <img src="Images/Me_transparent.svg" alt="" style="width:100%; display:block; margin-bottom:24px;">
-      <div class="beat"><div class="beat-num">01</div><div class="beat-text"><span class="beat-headline">This circle is the system where you have most leverage.</span><em>If you want to sit with this longer, there is a short film — 15 min.</em></div></div>
+      <img src="Images/Me_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">01</div><div class="beat-text"><span class="beat-headline">This circle is the system where you have most leverage.</span><em>If you want to sit with this longer, <span id="film-trigger" style="cursor:pointer; text-decoration:underline; text-underline-offset:3px;">there is a short film — 15 min.</span></em></div></div>
     </div>
 
     <!-- Slide 2 -->
     <div style="margin-bottom: 64px;">
-      <img src="Images/Me_-_Environment_transparent.svg" alt="" style="width:100%; display:block; margin-bottom:24px;">
+      <img src="Images/Me_-_Environment_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
       <div class="beat"><div class="beat-num">02</div><div class="beat-text"><span class="beat-headline">Most of a life is spent focused on the environment.</span><em>Ground starts on the left of the line: ownership of your attention and your reactions — and, from there, of what you need.</em></div></div>
     </div>
 
     <!-- Slide 3 -->
     <div style="margin-bottom: 64px;">
       <div style="overflow:hidden; margin-bottom:24px;">
-        <img src="Images/Needs_and_wants_transparent.svg" alt="" style="width:100%; display:block; margin-top:-15%;">
+        <img src="Images/Needs_and_wants_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-top:-15%;">
       </div>
       <div class="beat"><div class="beat-num">03</div><div class="beat-text"><span class="beat-headline">Needs exist in the present. Wants are hypotheses.</span><em>How we believe those needs can be fulfilled.<br><br>The nest on the left is old hypotheses, built on a misread — mostly what the environment taught us to want.<br><br>I treat the distinction as a working map, not something I already live cleanly.</em></div></div>
     </div>
 
     <!-- Slide 4 -->
     <div style="margin-bottom: 48px;">
-      <img src="Images/Last_slide_transparent.svg" alt="" style="width:100%; display:block; margin-bottom:24px;">
+      <img src="Images/Last_slide_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
       <div class="beat" style="margin-bottom:24px;"><div class="beat-num">04</div><div class="beat-text"><span class="beat-headline">Your conscious experience interprets needs and wants.</span><em>Through 3 main channels: sound, sight, sensing.<br><br>Listen includes the sound inside — language is built on speech, so that interpretation often arrives as voice. Observe that voice and what you see. Sense what the body does.<br><br>You have blind spots. They only show up in other people's view.<br><br>The hard part isn't collecting that view. It's catching the reflex that treats it as an attack on who you are — and not letting that reflex close the map.</em></div></div>
-      <div class="section-label" style="margin-bottom:16px;">Reflective questions</div>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">Where is my attention right now?</p>
-        <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">What do I actually need in this moment?</p>
-        <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">How do I say it clearly and stay curious about yours?</p>
+      <div style="padding-left:34px;">
+        <div class="section-label" style="margin-bottom:16px; color:var(--text-subtle);">Reflective questions</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">Where is my attention right now?</p>
+          <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">What do I actually need in this moment?</p>
+          <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">How do I say it clearly and stay curious about yours?</p>
+        </div>
       </div>
     </div>
 
@@ -902,64 +935,33 @@
 
   <hr class="section-divider">
 
-  <hr class="section-divider">
+  <!-- THE RHYTHM -->
+  <div id="rhythm" class="section-wrap" style="padding-top: 60px; padding-bottom: 60px;">
+    <div class="section-label">The Rhythm</div>
+    <h2>Spiral</h2>
 
-  <!-- 4. HOW WE MOVE -->
-  <div id="how" class="section-wrap">
-    <div class="section-label">How we move</div>
-    <h2>The shape of the work</h2>
-
-    <div class="beats">
-      <div class="beat">
-        <div class="beat-num">→</div>
-        <div class="beat-text">Elimination is how truth gets narrower.<em>We remove what isn't real until what remains is clear enough to move on.</em></div>
-      </div>
-      <div class="beat">
-        <div class="beat-num">→</div>
-        <div class="beat-text">Small present steps. Not the target you cannot reach today.<em>The next step is always smaller than you think.</em></div>
-      </div>
-      <div class="beat">
-        <div class="beat-num">→</div>
-        <div class="beat-text">1/6 move, 5/6 presence.<em>Most of the work is sensing and listening, not executing.</em></div>
-      </div>
-      <div class="beat">
-        <div class="beat-num">→</div>
-        <div class="beat-text">Learn to love being wrong.<em>A wrong picture, corrected, is more useful than a right picture you're afraid to test.</em></div>
-      </div>
+    <!-- 01 -->
+    <div style="margin-bottom: 64px;">
+      <img src="Images/Elimination_drives_truth_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">01</div><div class="beat-text"><span class="beat-headline">Wrong turns are how the path gets narrower.</span><em>Elimination does most of the work here, not inspiration. You don't need to already be right. You need to notice when something isn't — and let that count as real information, not failure.</em></div></div>
     </div>
 
-    <p style="color:var(--text-muted); font-size:15px; margin-top:16px;">With teams I build a shared picture, then one experiment. Same spiral.</p>
+    <!-- 02 -->
+    <div style="margin-bottom: 64px;">
+      <img src="Images/Compounding_effects_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">02</div><div class="beat-text"><span class="beat-headline">Those same wrong turns compound.</span><em>Nothing here is wasted. A consistent process turns that pile into momentum: small, steady input, and output that eventually curves up — not because any single step was big, but because none of them were skipped.</em></div></div>
+    </div>
 
-    <hr class="section-divider" style="margin:48px 0; max-width:100%;">
+    <!-- 03 -->
+    <div style="margin-bottom: 64px;">
+      <img src="Images/Small_steps_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">03</div><div class="beat-text"><span class="beat-headline">Small and present beats wide and far.</span><em>What you're aiming for, you probably can't reach today. That's fine — vision is allowed to stay wide and thin. What matters is that today's step stays narrow enough to actually take.</em></div></div>
+    </div>
 
-    <div class="section-label" style="margin-top:0;">Who this is for</div>
-
-    <table class="who-table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Before</th>
-          <th>After</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="color:var(--text-subtle); font-size:13px;">You</td>
-          <td>Capable, tired of fists, no honest picture of need vs want</td>
-          <td>A map + one step that is allowed to be small</td>
-        </tr>
-        <tr>
-          <td style="color:var(--text-subtle); font-size:13px;">A pair / group</td>
-          <td>Talking past each other</td>
-          <td>Shared picture, needs said out loud</td>
-        </tr>
-        <tr>
-          <td style="color:var(--text-subtle); font-size:13px;">A team / org</td>
-          <td>Smart people, no common map</td>
-          <td>One picture of the gap, one experiment</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- 04 -->
+    <div>
+      <div class="beat"><div class="beat-num">04</div><div class="beat-text"><span class="beat-headline">The honesty check.</span><em>Do you reflect — structured, and continuously? Not just when something goes wrong.<br><br>Do you reflect on what you feel, not only on what you think happened?</em></div></div>
+    </div>
   </div>
 
   <hr class="section-divider">
@@ -1006,11 +1008,17 @@
 </div><!-- /content -->
 
 <nav class="page-nav">
-  <a href="#story">Story</a>
-  <a href="#ground">Ground</a>
-  <a href="#how">How we move</a>
-  <a href="#start">Start</a>
+  <a href="#before-after"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="2" x2="2" y2="12"/><line x1="12" y1="2" x2="12" y2="12"/><line x1="5" y1="7" x2="9" y2="7"/><polyline points="7,5 9,7 7,9"/></svg>Before → After</a>
+  <a href="#how-it-works"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><line x1="7" y1="2" x2="7" y2="4.5"/><line x1="7" y1="9.5" x2="7" y2="12"/><line x1="2" y1="7" x2="4.5" y2="7"/><line x1="9.5" y1="7" x2="12" y2="7"/></svg>How it works</a>
+  <a href="#story"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="4" x2="11" y2="4"/><line x1="3" y1="7" x2="11" y2="7"/><line x1="3" y1="10" x2="8" y2="10"/></svg>Story</a>
+  <a href="#territory"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,2 5,11"/><polyline points="9,3 9,12"/><path d="M2 3 L5 2 L9 3 L12 2 L12 11 L9 12 L5 11 L2 12 Z"/></svg>The Territory</a>
+<a href="#rhythm"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 C4 10 4 4 7 4 C10 4 10 10 12 10"/><path d="M4 12 C5 12 5 7 7 7 C9 7 9 12 10 12"/></svg>The Rhythm</a>
+  <a href="#start"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg>Start</a>
 </nav>
+
+<div id="img-lightbox">
+  <img id="img-lightbox-img" src="" alt="">
+</div>
 
 <script>
   const nav = document.querySelector('.page-nav');
@@ -1020,6 +1028,26 @@
   }, { threshold: 0 });
   heroObserver.observe(hero);
 
+  const navLinks = nav.querySelectorAll('a');
+  const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href')));
+  const scrollContainer = document.getElementById('content');
+
+  function updateActiveNav() {
+    const mid = scrollContainer.scrollTop + scrollContainer.clientHeight * 0.35;
+    let active = null;
+    sections.forEach(s => {
+      if (!s) return;
+      if (s.offsetTop <= mid) active = s;
+    });
+    navLinks.forEach(a => {
+      const s = document.querySelector(a.getAttribute('href'));
+      a.classList.toggle('active', s === active);
+    });
+  }
+
+  scrollContainer.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -1028,6 +1056,25 @@
         target.scrollIntoView({ behavior: 'smooth' });
       }
     });
+  });
+  const lightbox = document.getElementById('img-lightbox');
+  const lightboxImg = document.getElementById('img-lightbox-img');
+
+  document.querySelectorAll('.expandable-img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('open');
+    });
+  });
+
+  lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('open');
+  });
+
+  document.getElementById('film-trigger').addEventListener('click', () => {
+    window.open('https://youtu.be/SZco5EJncVc', '_blank');
   });
 </script>
 
