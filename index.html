@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aleksander Gąssowski</title>
+<link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet">
+<style>
+  /* ── CSS VARIABLES ── */
+  :root {
+    --text-bright: rgba(255,255,255,1);
+    --text-visible: rgba(255,255,255,0.8);
+    --text-muted: rgba(255,255,255,0.5);
+    --text-subtle: rgba(255,255,255,0.3);
+    --text-ghost: rgba(255,255,255,0.08);
+    --color-teal: #61CCBA;
+    --color-blue: #70ACEB;
+    --color-yellow: #F5C251;
+    --color-red: #E97787;
+    --nav-height: 56px;
+  }
+
+  /* ── RESET ── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    font-family: 'Helvetica Neue', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-visible);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-bottom: 1px solid var(--text-ghost);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .nav-logo {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-bright);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--text-bright);
+  }
+
+  /* ── MAIN SCROLL ── */
+  main {
+    padding-top: var(--nav-height);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 120px 40px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  section.full-width {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 500;
+    color: var(--text-bright);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 500;
+    color: var(--text-bright);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-visible);
+    margin-bottom: 20px;
+  }
+
+  p.sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 40px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero-subline {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-subtle);
+    margin-bottom: 48px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-proof {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--text-bright);
+    color: #0a0a0a;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: opacity 0.2s;
+    margin-right: 20px;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .btn-text:hover { color: var(--text-visible); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--text-ghost);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── CALLOUT BOX ── */
+  .callout {
+    border-left: 2px solid var(--color-teal);
+    padding: 16px 20px;
+    margin: 32px 0;
+    background: rgba(97, 204, 186, 0.06);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout p {
+    font-size: 15px;
+    color: var(--text-visible);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* ── GROUND DIAGRAM ── */
+  .ground-diagram {
+    margin: 40px 0;
+    padding: 32px;
+    border: 1px solid var(--text-ghost);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .diagram-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 24px;
+  }
+
+  .diagram-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .diagram-box {
+    padding: 12px 20px;
+    border: 1px solid var(--text-ghost);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-visible);
+  }
+
+  .diagram-box.highlight-teal { border-color: var(--color-teal); color: var(--color-teal); }
+  .diagram-box.highlight-blue { border-color: var(--color-blue); color: var(--color-blue); }
+  .diagram-sub { font-size: 11px; color: var(--text-subtle); margin-top: 4px; }
+
+  .diagram-arrow {
+    font-size: 18px;
+    color: var(--text-subtle);
+  }
+
+  /* ── BEATS ── */
+  .beats {
+    margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .beat {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .beat-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-teal);
+    min-width: 20px;
+    padding-top: 3px;
+    opacity: 0.7;
+  }
+
+  .beat-text {
+    font-size: 16px;
+    color: var(--text-visible);
+    line-height: 1.5;
+  }
+
+  .beat-text em {
+    color: var(--text-muted);
+    font-style: normal;
+    font-size: 14px;
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ── QUESTIONS ── */
+  .questions {
+    margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .question {
+    font-size: 16px;
+    color: var(--text-muted);
+    padding-left: 16px;
+    border-left: 1px solid var(--text-ghost);
+    line-height: 1.5;
+  }
+
+  /* ── WHO TABLE ── */
+  .who-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0;
+  }
+
+  .who-table th {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--text-ghost);
+  }
+
+  .who-table td {
+    font-size: 15px;
+    color: var(--text-visible);
+    padding: 16px 16px;
+    border-bottom: 1px solid var(--text-ghost);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .who-table tr:last-child td { border-bottom: none; }
+
+  /* ── START SECTION ── */
+  .start-offering {
+    border: 1px solid var(--text-ghost);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 32px 0;
+  }
+
+  .offering-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+
+  .offering-detail {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .offering-bullets {
+    list-style: none;
+    margin-bottom: 28px;
+  }
+
+  .offering-bullets li {
+    font-size: 15px;
+    color: var(--text-visible);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--text-ghost);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .offering-bullets li:last-child { border-bottom: none; }
+
+  .offering-bullets li::before {
+    content: '→';
+    color: var(--color-teal);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid var(--text-subtle);
+    color: var(--text-visible);
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    margin-top: 16px;
+    margin-right: 12px;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--text-visible);
+    color: var(--text-bright);
+  }
+
+  .start-closing {
+    font-size: 14px;
+    color: var(--text-subtle);
+    font-style: italic;
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 48px 40px;
+    border-top: 1px solid var(--text-ghost);
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-name {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--text-subtle);
+    font-style: italic;
+  }
+
+  footer a {
+    font-size: 13px;
+    color: var(--text-subtle);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--text-muted); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 12px; }
+
+    #hero,
+    section { padding: 80px 24px; }
+
+    .ground-diagram { padding: 20px; }
+
+    .diagram-row { flex-direction: column; gap: 8px; }
+    .diagram-arrow { transform: rotate(90deg); }
+
+    .who-table th,
+    .who-table td { padding: 12px 8px; }
+
+    footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Aleksander Gąssowski</a>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#ground">Ground</a></li>
+    <li><a href="#how">How we move</a></li>
+    <li><a href="#start">Start</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- 1. HERO -->
+  <div id="hero">
+    <div class="hero-subline">Maps so you can stop swimming with your fists.</div>
+    <h1>I make maps of what is actually happening — in a person, a pair, a team — so movement becomes possible.</h1>
+    <p class="hero-proof">After years of mapping everyone else, I had to map myself. That is the work.</p>
+    <div>
+      <a href="#start" class="btn-primary">Start a conversation</a>
+      <a href="#story" class="btn-text">Read the story ↓</a>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- 2. STORY -->
+  <section id="story">
+    <div class="section-label">Story</div>
+    <h2>How I got here</h2>
+
+    <p>For years, people brought me their stuck places. Founders who couldn't say what they actually wanted. Couples who were talking past each other. Teams that ran smart meetings and still couldn't move. I sat with them, drew pictures of the system, found the gap between what they said they needed and what was actually running them. It worked.</p>
+
+    <p>I was good at seeing other people's systems. I was not good at seeing my own.</p>
+
+    <p>The thing about mapping is that it requires distance. You need enough space from the material to see its shape. I had almost no distance from myself. I had strategies everywhere — productivity systems, goals, frameworks — and almost no honest picture of what I actually needed right now. I was swimming with my fists.</p>
+
+    <p>The turn came slowly, then all at once. I started treating myself the way I treated clients. I drew the map. I found the gap. I stopped optimising for the future I thought I should want and started noticing what was actually true in the present moment.</p>
+
+    <p>A map, in my practice, is a shared picture of what is real. Not what should be, not what we wish were true — what is. It doesn't fix anything by itself. But it gives you something to stand on. And standing on something real is how movement starts.</p>
+
+    <p>I am the worked example. The hardest system to see is your own.</p>
+
+    <div class="callout">
+      <p>Before: swimming with fists. After: a picture you can stand on, and a step you can take today.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- 3. GROUND -->
+  <section id="ground">
+    <div class="section-label">Ground</div>
+    <h2>The picture I work from</h2>
+
+    <div class="ground-diagram">
+      <div class="diagram-label">ME · Environment · Needs now vs Wants later</div>
+      <div class="diagram-row">
+        <div class="diagram-box highlight-teal">
+          Needs
+          <div class="diagram-sub">now · present</div>
+        </div>
+        <div class="diagram-arrow">→</div>
+        <div class="diagram-box">
+          ME
+          <div class="diagram-sub">present, grounded</div>
+        </div>
+        <div class="diagram-arrow">→</div>
+        <div class="diagram-box highlight-blue">
+          Wants
+          <div class="diagram-sub">later · strategy</div>
+        </div>
+      </div>
+      <div class="diagram-row" style="margin-top:8px;">
+        <div class="diagram-box" style="width:100%; max-width:420px;">
+          Environment
+          <div class="diagram-sub">what is actually here</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="beats">
+      <div class="beat">
+        <div class="beat-num">01</div>
+        <div class="beat-text">Needs are now. Wants are strategies.<em>Most of what we call goals are strategies for meeting needs we haven't named.</em></div>
+      </div>
+      <div class="beat">
+        <div class="beat-num">02</div>
+        <div class="beat-text">Presence first: listen, observe, sense.<em>You can't read the map if you're not in the room.</em></div>
+      </div>
+      <div class="beat">
+        <div class="beat-num">03</div>
+        <div class="beat-text">Own what you need, then get curious about theirs.<em>Ownership is what makes curiosity real instead of polite.</em></div>
+      </div>
+      <div class="beat">
+        <div class="beat-num">04</div>
+        <div class="beat-text">Connection is the reality we want to create — not a slogan over a missing self.<em>Shared picture first. Then movement together.</em></div>
+      </div>
+    </div>
+
+    <div class="questions">
+      <div class="question">Where is my attention right now?</div>
+      <div class="question">What do I actually need in this moment?</div>
+      <div class="question">How do I say it clearly and stay curious about yours?</div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- 4. HOW WE MOVE -->
+  <section id="how">
+    <div class="section-label">How we move</div>
+    <h2>The shape of the work</h2>
+
+    <div class="beats">
+      <div class="beat">
+        <div class="beat-num">→</div>
+        <div class="beat-text">Elimination is how truth gets narrower.<em>We remove what isn't real until what remains is clear enough to move on.</em></div>
+      </div>
+      <div class="beat">
+        <div class="beat-num">→</div>
+        <div class="beat-text">Small present steps. Not the target you cannot reach today.<em>The next step is always smaller than you think.</em></div>
+      </div>
+      <div class="beat">
+        <div class="beat-num">→</div>
+        <div class="beat-text">1/6 move, 5/6 presence.<em>Most of the work is sensing and listening, not executing.</em></div>
+      </div>
+      <div class="beat">
+        <div class="beat-num">→</div>
+        <div class="beat-text">Learn to love being wrong.<em>A wrong picture, corrected, is more useful than a right picture you're afraid to test.</em></div>
+      </div>
+    </div>
+
+    <p style="color:var(--text-muted); font-size:15px; margin-top:16px;">With teams I build a shared picture, then one experiment. Same spiral.</p>
+
+    <hr class="section-divider" style="margin:48px 0;">
+
+    <!-- WHO THIS IS FOR -->
+    <div class="section-label" style="margin-top:0;">Who this is for</div>
+
+    <table class="who-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Before</th>
+          <th>After</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--text-subtle); font-size:13px;">You</td>
+          <td>Capable, tired of fists, no honest picture of need vs want</td>
+          <td>A map + one step that is allowed to be small</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-subtle); font-size:13px;">A pair / group</td>
+          <td>Talking past each other</td>
+          <td>Shared picture, needs said out loud</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-subtle); font-size:13px;">A team / org</td>
+          <td>Smart people, no common map</td>
+          <td>One picture of the gap, one experiment</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- 5. START -->
+  <section id="start">
+    <div class="section-label">Start</div>
+    <h2>Begin here</h2>
+
+    <div class="start-offering">
+      <div class="offering-title">A conversation</div>
+      <div class="offering-detail">60–75 minutes · Paid</div>
+      <ul class="offering-bullets">
+        <li>A first picture of where you are — need vs want</li>
+        <li>One direction</li>
+        <li>One step you can take this week</li>
+      </ul>
+      <a href="mailto:aleksander@gassowski.com" class="btn-primary">Start a conversation</a>
+    </div>
+
+    <div class="start-offering" style="margin-top:16px;">
+      <div class="offering-title">Say what you're circling</div>
+      <div class="offering-detail">Name · What you're working on · Individual / Pair / Team</div>
+      <a href="mailto:aleksander@gassowski.com" class="btn-ghost">Send a note</a>
+    </div>
+
+    <p class="start-closing">I don't sell a finished self. I sit with you until the picture is good enough to move.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Aleksander Gąssowski</div>
+    <div class="footer-tagline">Grounded, to become connected.</div>
+  </div>
+  <div style="display:flex; gap:24px; align-items:center;">
+    <a href="https://gassowski.com">gassowski.com</a>
+    <a href="https://linkedin.com/in/gassowski" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  // Active nav link on scroll
+  const sections = ['hero', 'story', 'ground', 'how', 'start'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
