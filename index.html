@@ -53,7 +53,22 @@
     align-items: center;
     justify-content: center;
     padding: 80px 60px;
+    position: relative;
   }
+
+  .hero-scroll-hint {
+    font-size: 13px;
+    color: var(--text-subtle);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    margin-left: 27px;
+    transition: color 0.2s;
+  }
+
+  .hero-scroll-hint:hover { color: var(--text-muted); }
 
   .hero-inner {
     display: grid;
@@ -540,6 +555,7 @@
         <a href="#start" class="btn-ghost">For my team</a>
         <a href="#start" class="btn-primary">For myself</a>
       </div>
+      <a href="#story" class="hero-scroll-hint">↓ See how it works</a>
     </div>
     </div>
   </div>
