@@ -71,6 +71,7 @@
   }
 
   .hero-scroll-hint:hover { color: var(--text-muted); }
+  .hero-scroll-mobile { display: none; }
 
   .hero-inner {
     display: grid;
@@ -514,6 +515,9 @@
     .hero-bullets { margin-left: 0 !important; }
     .hero-proof-strip { margin-left: 0; }
     .hero-ctas { margin-left: 0; margin-top: 32px; justify-content: center; }
+    .hero-scroll-desktop { display: none; }
+    .hero-scroll-mobile { display: inline-flex; position: static; left: auto; bottom: auto; margin-top: 24px; margin-left: 0; justify-content: center; }
+    #hero { overflow: hidden; }
 
     .section-wrap { padding: 80px 24px; }
 
@@ -557,9 +561,10 @@
         <a href="#start" class="btn-ghost">For my team</a>
         <a href="#start" class="btn-primary">For myself</a>
       </div>
+      <a href="#story" class="hero-scroll-hint hero-scroll-mobile">↓ See how it works</a>
     </div>
     </div>
-    <a href="#story" class="hero-scroll-hint">↓ See how it works</a>
+    <a href="#story" class="hero-scroll-hint hero-scroll-desktop">↓ See how it works</a>
   </div>
 
   <hr class="section-divider">
