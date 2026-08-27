@@ -49,30 +49,14 @@
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 60px;
-    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    justify-items: center;
+    padding: 80px 60px 32px;
   }
-
-  .hero-scroll-hint {
-    font-size: 13px;
-    color: var(--text-subtle);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    margin-top: auto;
-    margin-left: 27px;
-    padding-bottom: 32px;
-    transition: color 0.2s;
-  }
-
-  .hero-scroll-hint:hover { color: var(--text-muted); }
 
   .hero-inner {
+    grid-row: 2;
     display: grid;
     grid-template-columns: 260px 1fr;
     gap: 60px;
@@ -80,6 +64,31 @@
     width: 100%;
     max-width: 1200px;
   }
+
+  .hero-scroll-row {
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 60px;
+    width: 100%;
+    max-width: 1200px;
+    padding-top: 32px;
+  }
+
+  .hero-scroll-hint {
+    grid-column: 2;
+    font-size: 13px;
+    color: var(--text-subtle);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    margin-left: 27px;
+    transition: color 0.2s;
+  }
+
+  .hero-scroll-hint:hover { color: var(--text-muted); }
 
   .hero-text {
     display: flex;
@@ -557,8 +566,10 @@
         <a href="#start" class="btn-ghost">For my team</a>
         <a href="#start" class="btn-primary">For myself</a>
       </div>
-      <a href="#story" class="hero-scroll-hint">↓ See how it works</a>
     </div>
+    </div>
+    <div class="hero-scroll-row">
+      <a href="#story" class="hero-scroll-hint">↓ See how it works</a>
     </div>
   </div>
 
