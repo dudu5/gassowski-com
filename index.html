@@ -148,7 +148,10 @@
     white-space: nowrap;
     padding: 13px 0;
     margin: 0;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
     width: 140px;
   }
 
@@ -177,8 +180,8 @@
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-subtle);
-    margin-bottom: 16px;
+    color: var(--color-teal);
+    margin-bottom: 6px;
   }
 
   h1 {
@@ -324,7 +327,7 @@
   .beat {
     display: flex;
     gap: 16px;
-    align-items: flex-start;
+    align-items: baseline;
   }
 
   .beat-num {
@@ -332,7 +335,6 @@
     font-weight: 600;
     color: var(--color-teal);
     min-width: 20px;
-    padding-top: 3px;
     opacity: 0.7;
   }
 
@@ -340,6 +342,12 @@
     font-size: 16px;
     color: var(--text-visible);
     line-height: 1.5;
+  }
+
+  .beat-headline {
+    display: block;
+    color: var(--text-bright);
+    font-weight: 500;
   }
 
   .beat-text em {
@@ -448,6 +456,159 @@
     line-height: 1.6;
   }
 
+  /* ── BEFORE / AFTER ── */
+  .before-after {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  .ba-block {
+    padding: 40px 0;
+    outline: 1px solid rgba(97,204,186,0.4);
+  }
+
+  .ba-block + .ba-block {
+    border-top: 1px solid var(--text-ghost);
+  }
+
+  .ba-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 24px;
+  }
+
+  .ba-cols {
+    display: flex;
+    gap: 0;
+  }
+
+  .ba-col {
+    flex: 1;
+  }
+
+  .ba-col:first-child {
+    padding-right: 40px;
+    border-right: 1px solid var(--text-ghost);
+  }
+
+  .ba-col:last-child {
+    padding-left: 40px;
+  }
+
+  .ba-col-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 14px;
+  }
+
+  .ba-bullet {
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--text-visible);
+    line-height: 1.6;
+  }
+
+  /* ── PAGE BODY (below hero) ── */
+  .page-nav {
+    position: fixed;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .page-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .page-nav a {
+    font-size: 13px;
+    color: var(--text-subtle);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .page-nav a:hover { color: var(--text-muted); }
+
+  #story > p { font-size: 15px; color: var(--text-muted); }
+
+  /* ── STORY ACCORDION ── */
+  .story-accordion {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .story-item {
+    border-top: 1px solid var(--text-ghost);
+    padding: 0;
+  }
+
+  .story-item:last-child {
+    border-bottom: 1px solid var(--text-ghost);
+  }
+
+  .story-item summary {
+    font-size: clamp(13px, 1.2vw, 16px);
+    font-weight: 500;
+    color: var(--text-bright);
+    padding: 16px 0;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: color 0.2s;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .story-item summary::-webkit-details-marker { display: none; }
+
+  .story-item summary::after {
+    content: '+';
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--color-teal);
+    flex-shrink: 0;
+    margin-left: auto;
+    transition: transform 0.25s;
+  }
+
+  .story-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .story-item summary:hover { color: var(--text-visible); }
+
+  .story-item p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .story-item p:last-child { margin-bottom: 20px; }
+
   /* ── FOOTER ── */
   footer {
     padding: 48px 60px;
@@ -531,6 +692,8 @@
     .who-table td { padding: 12px 8px; }
 
     footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+
+    .page-nav { display: none; }
   }
 </style>
 </head>
@@ -543,14 +706,14 @@
   <div id="hero">
     <div class="hero-inner">
     <div class="hero-photo">
-      <img src="Me.png" alt="Aleksander Gąssowski">
+      <img src="Images/Me.png" alt="Aleksander Gąssowski">
       <div style="font-size:16px; color:var(--text-muted); margin-top:12px; text-align:center;">Aleksander Gąssowski</div>
     </div>
     <div class="hero-text">
       <h1>Stuck is mostly <span style="text-decoration:underline; text-decoration-color:rgba(255,255,255,0.25); text-underline-offset:6px; text-decoration-thickness:2px;">not</span> a lack of effort.<br> It's a missing picture.</h1>
       <div class="hero-bullets" style="display:flex; flex-direction:column; gap:4px; margin-bottom:0; margin-left:24px;">
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Busy doesn't mean moving. Active doesn't mean aligned.</span></div>
-        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>I help you draw the map - of yourself, or of your team</span></div>
+        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>We draw a picture you can stand on — of you, or of the team.</span></div>
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>And find the next step small enough to actually take.</span></div>
       </div>
       <div class="hero-proof-strip">
@@ -558,97 +721,186 @@
         <div class="hero-quote">"The courage to cut through the noise and focus on what actually mattered."<cite>Kriti Paliwal, Data Science Manager, Securitas</cite></div>
       </div>
       <div class="hero-ctas">
-        <a href="#start" class="btn-ghost">For my team</a>
-        <a href="#start" class="btn-primary">For myself</a>
+        <a href="#start" class="btn-primary"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><circle cx="7" cy="4" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For myself</a>
+        <a href="#start" class="btn-ghost"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" style="flex-shrink:0;"><circle cx="6.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><circle cx="12.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1 13c0-3.038 2.462-5.5 5.5-5.5.9 0 1.75.217 2.5.601" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M8 13c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For my team</a>
       </div>
-      <a href="#story" class="hero-scroll-hint hero-scroll-mobile">↓ See how it works</a>
+      <a href="#how-it-works" class="hero-scroll-hint hero-scroll-mobile">↓ See how it works</a>
     </div>
     </div>
-    <a href="#story" class="hero-scroll-hint hero-scroll-desktop">↓ See how it works</a>
+    <a href="#how-it-works" class="hero-scroll-hint hero-scroll-desktop">↓ See how it works</a>
+  </div>
+
+  <div class="page-content">
+
+  <hr class="section-divider">
+
+  <!-- 2. HOW IT WORKS -->
+  <div id="how-it-works" class="section-wrap" style="max-width: 900px; padding-left: 0; padding-right: 0;">
+    <div class="before-after">
+
+      <!-- Individual -->
+      <div class="ba-block">
+        <div class="ba-block-header">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><circle cx="7" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1 15c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Individual
+        </div>
+        <div class="ba-cols">
+          <div class="ba-col">
+            <div class="ba-col-title" style="color:var(--color-red);">Before</div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>Trying hard.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>Circling back to where I was.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>A critic that won't quit.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>Performing a person I must be.</span></div>
+          </div>
+          <div class="ba-col">
+            <div class="ba-col-title" style="color:var(--color-teal);">After</div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Effort that builds instead of circling.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>A critic you can hear without handing it the wheel.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Moving toward what actually makes me feel alive.</span></div>
+          </div>
+        </div>
+        <div style="margin-top: 24px; text-align: center; font-size: 14px; color: var(--text-muted); font-style: italic; line-height: 1.6;">"A quiet certainty that there is a path that belongs only to me, and that I can choose it."<cite style="display:block; font-size:12px; font-style:normal; color:var(--text-subtle); margin-top:6px;">Özgun, workshop</cite></div>
+      </div>
+
+      <!-- Team -->
+      <div class="ba-block">
+        <div class="ba-block-header">
+          <svg width="18" height="16" viewBox="0 0 18 16" fill="none"><circle cx="6.5" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1 15c0-3.314 2.686-6 5.5-6 .95 0 1.85.23 2.63.636" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M8.5 15c0-3.038 2.015-5.5 4.5-5.5s4.5 2.462 4.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Team
+        </div>
+        <div class="ba-cols">
+          <div class="ba-col">
+            <div class="ba-col-title" style="color:var(--color-red);">Before</div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>Everyone is doing.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>No one is in the same world.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>They participate in something I am holding.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-red); flex-shrink:0;">→</span><span>I carry the care. They attend.</span></div>
+          </div>
+          <div class="ba-col">
+            <div class="ba-col-title" style="color:var(--color-teal);">After</div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>A shared perspective, mapped together.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>A picture that is theirs.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>No need to assign ownership.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Care that sits in the room because they made the thing.</span></div>
+          </div>
+        </div>
+        <div style="margin-top: 24px; text-align: center; font-size: 14px; color: var(--text-muted); font-style: italic; line-height: 1.6;">"Illuminating where we were failing to deliver meaningful outcomes was a game changer."<cite style="display:block; font-size:12px; font-style:normal; color:var(--text-subtle); margin-top:6px;">Vincent Genart, Director of Partnerships, Securitas</cite></div>
+      </div>
+
+    </div>
+    <div style="padding: 80px 60px 24px;">
+      <div class="section-label">How it works</div>
+      <h2>2 coordinates and a step small enough to take.</h2>
+      <p style="font-size:17px; font-weight:500; color:var(--text-bright); margin-bottom:12px;">First we get it out.</p>
+      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">What's inside — said, drawn, shared — so you can see where you are, as well as where you want to go.</p>
+      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">That pair is the frame. Without it, focus is just another "should."</p>
+    </div>
+    <img src="Images/2_coordinates.svg" alt="2 coordinates" style="width:100%; display:block; opacity: 0.9;">
+    <div style="padding: 80px 60px 24px;">
+      <p style="font-size:17px; font-weight:500; color:var(--text-bright); margin-bottom:12px;">Then a small move inside that frame.</p>
+      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">Look on purpose. Let what happens update the map.</p>
+      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">Watching with a defined focus is a move. You don't have to have changed. You have to know what you're looking for.</p>
+    </div>
+    <img src="Images/The spiral loop.svg" alt="The spiral loop" style="width:100%; display:block; opacity: 0.9;">
+    <div style="padding: 80px 60px 0;">
+      <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">This isn't something I read. It's what learning to navigate myself — and to lead teams — was actually about.</p>
+    </div>
   </div>
 
   <hr class="section-divider">
 
-  <!-- 2. STORY -->
+  <!-- 3. STORY -->
   <div id="story" class="section-wrap">
     <div class="section-label">Story</div>
     <h2>How I got here</h2>
+    <p>For most of my life I was very good at other people and very late to myself.</p>
 
-    <p>For years, people brought me their stuck places. Founders who couldn't say what they actually wanted. Couples who were talking past each other. Teams that ran smart meetings and still couldn't move. I sat with them, drew pictures of the system, found the gap between what they said they needed and what was actually running them. It worked.</p>
+    <div class="story-accordion">
 
-    <p>I was good at seeing other people's systems. I was not good at seeing my own.</p>
+      <details class="story-item">
+        <summary>A child the room needed to manage - not being enough</summary>
+        <p>I grew up in a family that had to make it. I was loud, fast, curious — a child the environment felt it needed to manage. School was a strive-world I wanted in on and somehow could not hold. That feeling settled in as a fact: I am not enough.</p>
+      </details>
 
-    <p>The thing about mapping is that it requires distance. You need enough space from the material to see its shape. I had almost no distance from myself. I had strategies everywhere — productivity systems, goals, frameworks — and almost no honest picture of what I actually needed right now. I was swimming with my fists.</p>
+      <details class="story-item">
+        <summary>I left myself in order to stay with other people</summary>
+        <p>So I turned outward. I learned to read rooms, to follow friends, to understand clients. I became useful. Startups, product, a small firm, a global company. From the outside the story can be told as adventure: Austria, Australia, Malaysia, Sweden, Poland. From the inside it was often fear with a good costume. I pushed. When it did not land, I pushed more. A therapist once said I had been thrown in the water without being taught to swim. That was accurate. A lot of movement. Not much grace.</p>
+      </details>
 
-    <p>The turn came slowly, then all at once. I started treating myself the way I treated clients. I drew the map. I found the gap. I stopped optimising for the future I thought I should want and started noticing what was actually true in the present moment.</p>
+      <details class="story-item">
+        <summary>Two things that changed the water: a runway, and shared perspectives</summary>
+        <p>Two things slowly changed the water.</p>
+        <p>One was money treated as safety, not status. In Kuala Lumpur I was broke and in debt to family. I put cash in piles on the table so I could see what a week actually cost — small steps, close to where I was. That habit, over years, became a runway. The runway is what later let me say no.</p>
+        <p>The other was a way of working I found because I could not be the boss who just decides. I was too unsure for that. So I gathered every perspective I could — investors, developers, customers — wrote down what I thought I understood, and brought it back: tell me what doesn't fit. We made a shared picture. Sometimes the picture said: this product has no use case. Sometimes it got us more time. That cycle is the development spiral you've already seen above.</p>
+      </details>
 
-    <p>A map, in my practice, is a shared picture of what is real. Not what should be, not what we wish were true — what is. It doesn't fix anything by itself. But it gives you something to stand on. And standing on something real is how movement starts.</p>
+      <details class="story-item">
+        <summary>I could not find my place, so I disappeared into myself</summary>
+        <p>The cost of living only outward arrived on schedule. I was tired of shallow rooms. More than that: I could not find my place. The system was exhausted from trying to fit — from being something I was not. I disappeared into podcasts, slides, long stretches alone. I was building an understanding of the world and skipping the system that was doing the building.</p>
+      </details>
 
-    <p>I am the worked example. The hardest system to see is your own.</p>
+      <details class="story-item">
+        <summary>What authentic connection costs</summary>
+        <p>I lost my father. I lost my younger brother, Jaś. I know what it is to love someone and not be able to save them. That did not make me wise. It taught me acceptance. It made me serious about what contact costs.</p>
+      </details>
 
-    <div class="callout">
-      <p>Before: swimming with fists. After: a picture you can stand on, and a step you can take today.</p>
+      <details class="story-item">
+        <summary>I turned the method around. The last customer was me.</summary>
+        <p>I quit a job that praised me and would not take the change. I turned the same method I had used on markets onto myself. Coaching, mediation, presence work. The last customer was me. I had spent almost no time trying to understand him.</p>
+      </details>
+
+      <details class="story-item">
+        <summary>What I found — and what is still ahead</summary>
+        <p>What I found is ordinary and specific. A nervous system that runs hot. A mind that maps everything and struggles to finish. A critic trained on "you should be otherwise" focused on everything that is "wrong". Skill with people that was real, and a story about myself that was not. The work now is not another map for its own sake. It is letting the map guide the body — embodiment still ahead of me. I am teaching my body to change, led by a mind that increasingly understands what change I want and why I need it.</p>
+        <p>I am not selling a finished self. I am an example that the hardest system to see is your own. It is also the one with the most leverage over your actual experience. You need other people's perspectives to catch what your autopilot is defending. Change costs energy. The old system will try to keep the status quo. That is not a moral failure.</p>
+      </details>
+
     </div>
+    <p style="font-size:15px; color:var(--text-muted); line-height:1.7; margin-top:40px; font-style:italic;">Next is the map of that system — where you stand, before you try to move. Ground.</p>
   </div>
 
   <hr class="section-divider">
 
-  <!-- 3. GROUND -->
-  <div id="ground" class="section-wrap">
-    <div class="section-label">Ground</div>
-    <h2>The picture I work from</h2>
+  <!-- STORY SLIDES -->
+  <div class="section-wrap" style="padding-top: 60px; padding-bottom: 60px;">
 
-    <div class="ground-diagram">
-      <div class="diagram-label">ME · Environment · Needs now vs Wants later</div>
-      <div class="diagram-row">
-        <div class="diagram-box highlight-teal">
-          Needs
-          <div class="diagram-sub">now · present</div>
-        </div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-box">
-          ME
-          <div class="diagram-sub">present, grounded</div>
-        </div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-box highlight-blue">
-          Wants
-          <div class="diagram-sub">later · strategy</div>
-        </div>
+    <!-- Slide 1 -->
+    <div style="margin-bottom: 64px;">
+      <div class="section-label">The Territory</div>
+      <h2>Ground</h2>
+      <img src="Images/Me_transparent.svg" alt="" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">01</div><div class="beat-text"><span class="beat-headline">This circle is the system where you have most leverage.</span><em>If you want to sit with this longer, there is a short film — 15 min.</em></div></div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div style="margin-bottom: 64px;">
+      <img src="Images/Me_-_Environment_transparent.svg" alt="" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">02</div><div class="beat-text"><span class="beat-headline">Most of a life is spent focused on the environment.</span><em>Ground starts on the left of the line: ownership of your attention and your reactions — and, from there, of what you need.</em></div></div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div style="margin-bottom: 64px;">
+      <div style="overflow:hidden; margin-bottom:24px;">
+        <img src="Images/Needs_and_wants_transparent.svg" alt="" style="width:100%; display:block; margin-top:-15%;">
       </div>
-      <div class="diagram-row" style="margin-top:8px;">
-        <div class="diagram-box" style="width:100%; max-width:420px;">
-          Environment
-          <div class="diagram-sub">what is actually here</div>
-        </div>
+      <div class="beat"><div class="beat-num">03</div><div class="beat-text"><span class="beat-headline">Needs exist in the present. Wants are hypotheses.</span><em>How we believe those needs can be fulfilled.<br><br>The nest on the left is old hypotheses, built on a misread — mostly what the environment taught us to want.<br><br>I treat the distinction as a working map, not something I already live cleanly.</em></div></div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div style="margin-bottom: 48px;">
+      <img src="Images/Last_slide_transparent.svg" alt="" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat" style="margin-bottom:24px;"><div class="beat-num">04</div><div class="beat-text"><span class="beat-headline">Your conscious experience interprets needs and wants.</span><em>Through 3 main channels: sound, sight, sensing.<br><br>Listen includes the sound inside — language is built on speech, so that interpretation often arrives as voice. Observe that voice and what you see. Sense what the body does.<br><br>You have blind spots. They only show up in other people's view.<br><br>The hard part isn't collecting that view. It's catching the reflex that treats it as an attack on who you are — and not letting that reflex close the map.</em></div></div>
+      <div class="section-label" style="margin-bottom:16px;">Reflective questions</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">Where is my attention right now?</p>
+        <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">What do I actually need in this moment?</p>
+        <p style="font-size:15px; color:var(--text-bright); line-height:1.7; margin:0;">How do I say it clearly and stay curious about yours?</p>
       </div>
     </div>
 
-    <div class="beats">
-      <div class="beat">
-        <div class="beat-num">01</div>
-        <div class="beat-text">Needs are now. Wants are strategies.<em>Most of what we call goals are strategies for meeting needs we haven't named.</em></div>
-      </div>
-      <div class="beat">
-        <div class="beat-num">02</div>
-        <div class="beat-text">Presence first: listen, observe, sense.<em>You can't read the map if you're not in the room.</em></div>
-      </div>
-      <div class="beat">
-        <div class="beat-num">03</div>
-        <div class="beat-text">Own what you need, then get curious about theirs.<em>Ownership is what makes curiosity real instead of polite.</em></div>
-      </div>
-      <div class="beat">
-        <div class="beat-num">04</div>
-        <div class="beat-text">Connection is the reality we want to create — not a slogan over a missing self.<em>Shared picture first. Then movement together.</em></div>
-      </div>
-    </div>
-
-    <div class="questions">
-      <div class="question">Where is my attention right now?</div>
-      <div class="question">What do I actually need in this moment?</div>
-      <div class="question">How do I say it clearly and stay curious about yours?</div>
-    </div>
   </div>
+
+  <hr class="section-divider">
 
   <hr class="section-divider">
 
@@ -749,9 +1001,25 @@
     </div>
   </footer>
 
+    </div><!-- /page-content -->
+
 </div><!-- /content -->
 
+<nav class="page-nav">
+  <a href="#story">Story</a>
+  <a href="#ground">Ground</a>
+  <a href="#how">How we move</a>
+  <a href="#start">Start</a>
+</nav>
+
 <script>
+  const nav = document.querySelector('.page-nav');
+  const hero = document.querySelector('#hero');
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    nav.style.opacity = entry.isIntersecting ? '0' : '1';
+  }, { threshold: 0 });
+  heroObserver.observe(hero);
+
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
