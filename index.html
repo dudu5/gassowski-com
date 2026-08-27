@@ -49,13 +49,19 @@
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+  }
+
+  .hero-inner {
     display: grid;
     grid-template-columns: 260px 1fr;
     gap: 60px;
     align-items: stretch;
-    padding: 80px 60px;
+    width: 100%;
     max-width: 1000px;
-    margin: 0 auto;
   }
 
   .hero-text {
@@ -503,6 +509,7 @@
 
   <!-- 1. HERO -->
   <div id="hero">
+    <div class="hero-inner">
     <div class="hero-photo">
       <img src="Me.png" alt="Aleksander Gąssowski">
     </div>
@@ -521,6 +528,7 @@
         <a href="#start" class="btn-primary">For myself</a>
         <a href="#start" class="btn-ghost">For my team</a>
       </div>
+    </div>
     </div>
   </div>
 
