@@ -537,6 +537,34 @@
     transition: opacity 0.4s ease;
   }
 
+  .bottom-nav {
+    position: fixed;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .bottom-nav a {
+    font-size: 13px;
+    color: var(--text-subtle);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .bottom-nav a svg { flex-shrink: 0; }
+  .bottom-nav a:hover { color: var(--text-muted); }
+
+  @media (max-width: 900px) {
+    .bottom-nav { display: none; }
+  }
+
   .page-content {
     max-width: 720px;
     margin: 0 auto;
@@ -756,12 +784,9 @@
       </div>
       <div class="hero-ctas">
         <a href="#start" class="btn-primary"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><circle cx="7" cy="4" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For myself</a>
-        <a href="#start" class="btn-ghost"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" style="flex-shrink:0;"><circle cx="6.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><circle cx="12.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1 13c0-3.038 2.462-5.5 5.5-5.5.9 0 1.75.217 2.5.601" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M8 13c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For my team</a>
       </div>
-      <a href="#how-it-works" class="hero-scroll-hint hero-scroll-mobile">↓ See how it works</a>
     </div>
     </div>
-    <a href="#how-it-works" class="hero-scroll-hint hero-scroll-desktop">↓ See how it works</a>
   </div>
 
   <div class="page-content">
@@ -959,8 +984,13 @@
     </div>
 
     <!-- 04 -->
-    <div>
+    <div style="margin-bottom: 48px;">
       <div class="beat"><div class="beat-num">04</div><div class="beat-text"><span class="beat-headline">The honesty check.</span><em>Do you reflect — structured, and continuously? Not just when something goes wrong.<br><br>Do you reflect on what you feel, not only on what you think happened?</em></div></div>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="#start" class="btn-primary"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;"><circle cx="7" cy="4" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For myself</a>
+      <a href="#start" class="btn-ghost"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" style="flex-shrink:0;"><circle cx="6.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><circle cx="12.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1 13c0-3.038 2.462-5.5 5.5-5.5.9 0 1.75.217 2.5.601" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M8 13c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For my team</a>
     </div>
   </div>
 
@@ -1016,6 +1046,11 @@
   <a href="#start"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg>Start</a>
 </nav>
 
+<nav class="bottom-nav">
+  <a href="#start"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For myself</a>
+  <a href="#start"><svg width="18" height="14" viewBox="0 0 18 14" fill="none"><circle cx="6.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><circle cx="12.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1 13c0-3.038 2.462-5.5 5.5-5.5.9 0 1.75.217 2.5.601" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M8 13c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>For my team</a>
+</nav>
+
 <div id="img-lightbox">
   <img id="img-lightbox-img" src="" alt="">
 </div>
@@ -1023,8 +1058,11 @@
 <script>
   const nav = document.querySelector('.page-nav');
   const hero = document.querySelector('#hero');
+  const bottomNav = document.querySelector('.bottom-nav');
   const heroObserver = new IntersectionObserver(([entry]) => {
-    nav.style.opacity = entry.isIntersecting ? '0' : '1';
+    const show = entry.isIntersecting ? '0' : '1';
+    nav.style.opacity = show;
+    bottomNav.style.opacity = show;
   }, { threshold: 0 });
   heroObserver.observe(hero);
 
@@ -1033,11 +1071,13 @@
   const scrollContainer = document.getElementById('content');
 
   function updateActiveNav() {
-    const mid = scrollContainer.scrollTop + scrollContainer.clientHeight * 0.35;
+    const containerTop = scrollContainer.getBoundingClientRect().top;
+    const threshold = scrollContainer.clientHeight * 0.35;
     let active = null;
     sections.forEach(s => {
       if (!s) return;
-      if (s.offsetTop <= mid) active = s;
+      const top = s.getBoundingClientRect().top - containerTop;
+      if (top <= threshold) active = s;
     });
     navLinks.forEach(a => {
       const s = document.querySelector(a.getAttribute('href'));
