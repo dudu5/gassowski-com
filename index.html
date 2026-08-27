@@ -57,6 +57,9 @@
   }
 
   .hero-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: max(407px, calc(50% - 253px));
     font-size: 13px;
     color: var(--text-subtle);
     text-decoration: none;
@@ -64,9 +67,6 @@
     align-items: center;
     gap: 8px;
     white-space: nowrap;
-    margin-top: auto;
-    margin-left: 27px;
-    padding-bottom: 32px;
     transition: color 0.2s;
   }
 
@@ -557,9 +557,9 @@
         <a href="#start" class="btn-ghost">For my team</a>
         <a href="#start" class="btn-primary">For myself</a>
       </div>
-      <a href="#story" class="hero-scroll-hint">↓ See how it works</a>
     </div>
     </div>
+    <a href="#story" class="hero-scroll-hint">↓ See how it works</a>
   </div>
 
   <hr class="section-divider">
