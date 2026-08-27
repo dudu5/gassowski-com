@@ -464,30 +464,35 @@
     body { overflow-y: auto; }
 
     #hero {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
       padding: 60px 24px 80px;
-      gap: 0;
+      align-items: flex-start;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
 
     .hero-photo {
       order: 1;
-      margin-bottom: 32px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 0;
     }
 
     .hero-photo img {
-      max-width: 140px;
-      aspect-ratio: 1/1;
-      border-radius: 50%;
+      width: 120px;
+      height: 120px;
     }
 
     .hero-text {
       order: 2;
+      justify-content: flex-start;
     }
 
-    .hero-ctas { margin-top: 24px; }
-    .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .hero-cta-row a { width: 100%; text-align: center; }
+    .hero-proof-strip { margin-left: 0; }
+    .hero-ctas { margin-left: 0; margin-top: 24px; }
 
     .section-wrap { padding: 80px 24px; }
 
