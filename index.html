@@ -65,8 +65,10 @@
 
   .hero-photo {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
+    gap: 24px;
   }
 
   .hero-photo img {
@@ -107,9 +109,10 @@
 
   .hero-ctas {
     display: flex;
-    flex-direction: row;
-    gap: 12px;
-    margin-top: 32px;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 0;
+    width: 100%;
   }
 
   .hero-ctas a {
@@ -478,6 +481,10 @@
   <div id="hero">
     <div class="hero-photo">
       <img src="Me.png" alt="Aleksander Gąssowski">
+      <div class="hero-ctas">
+        <a href="#start" class="btn-primary">For myself</a>
+        <a href="#start" class="btn-ghost">For my team</a>
+      </div>
     </div>
     <div class="hero-text">
       <h1>Stuck is mostly not a lack of effort.<br>It's a missing picture.</h1>
@@ -489,10 +496,6 @@
       <div class="hero-proof-strip">
         <div class="hero-quote">"Before this, I was going full speed - just sitting on the roof of the car instead of behind the wheel."<cite>- Reidar, individual coaching</cite></div>
         <div class="hero-quote">"The courage to cut through the noise and focus on what actually mattered."<cite>- Kriti Paliwal, Data Science Manager, Securitas</cite></div>
-      </div>
-      <div class="hero-ctas">
-        <a href="#start" class="btn-primary">For myself</a>
-        <a href="#start" class="btn-ghost">For my team</a>
       </div>
     </div>
   </div>
