@@ -50,7 +50,7 @@
   #hero {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 260px;
+    grid-template-columns: 260px 1fr;
     gap: 60px;
     align-items: center;
     padding: 80px 60px;
@@ -475,6 +475,9 @@
 
   <!-- 1. HERO -->
   <div id="hero">
+    <div class="hero-photo">
+      <img src="Me.png" alt="Aleksander Gąssowski">
+    </div>
     <div class="hero-text">
       <h1>Stuck is mostly not a lack of effort. It's a missing picture.</h1>
       <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:0;">
@@ -490,9 +493,6 @@
         <a href="#start" class="btn-primary">For myself</a>
         <a href="#start" class="btn-ghost">For my team</a>
       </div>
-    </div>
-    <div class="hero-photo">
-      <img src="Me.png" alt="Aleksander Gąssowski">
     </div>
   </div>
 
