@@ -103,27 +103,64 @@
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 60px;
+    align-items: center;
+    padding: 80px 60px;
+  }
+
+  .hero-text {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-photo {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: 80px 60px;
-    max-width: 720px;
   }
 
-  .hero-subline {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-subtle);
-    margin-bottom: 48px;
-    letter-spacing: 0.01em;
+  .hero-photo img {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+    opacity: 0.85;
+    filter: grayscale(15%);
   }
 
-  .hero-proof {
-    font-size: 15px;
+  .hero-proof-strip {
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-quote {
+    font-size: 14px;
     color: var(--text-muted);
-    margin-bottom: 48px;
-    line-height: 1.6;
-    max-width: 520px;
+    line-height: 1.5;
+    padding-left: 14px;
+    border-left: 1px solid var(--text-ghost);
+  }
+
+  .hero-quote cite {
+    display: block;
+    font-size: 12px;
+    font-style: normal;
+    color: var(--text-subtle);
+    margin-top: 4px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
   }
 
   /* ── TYPOGRAPHY ── */
@@ -439,7 +476,34 @@
 
     body { overflow-y: auto; }
 
-    #hero,
+    #hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      padding: 60px 24px 80px;
+      gap: 0;
+    }
+
+    .hero-photo {
+      order: 1;
+      margin-bottom: 32px;
+    }
+
+    .hero-photo img {
+      max-width: 140px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+    }
+
+    .hero-text {
+      order: 2;
+    }
+
+    /* On mobile: headline → subhead → CTAs → proof */
+    .hero-ctas { order: 3; margin-top: 24px; margin-bottom: 0; }
+    .hero-proof-strip { order: 4; margin-top: 28px; }
+    .hero-ctas .btn-primary,
+    .hero-ctas .btn-ghost { width: 100%; text-align: center; margin-right: 0; }
+
     .section-wrap { padding: 80px 24px; }
 
     .section-divider { margin: 0 24px; }
@@ -473,12 +537,26 @@
 
   <!-- 1. HERO -->
   <div id="hero">
-    <div class="hero-subline">Maps so you can stop swimming with your fists.</div>
-    <h1>I make maps of what is actually happening — in a person, a pair, a team — so movement becomes possible.</h1>
-    <p class="hero-proof">After years of mapping everyone else, I had to map myself. That is the work.</p>
-    <div>
-      <a href="#start" class="btn-primary">Start a conversation</a>
-      <a href="#story" class="btn-text">Read the story ↓</a>
+    <div class="hero-text">
+      <h1>I make maps so people can stop swimming with their fists.</h1>
+      <p style="font-size:17px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">Busy doesn't mean moving. Active doesn't mean aligned. Most of the fog — in a person or in a team — isn't a lack of effort. It's the absence of a shared, honest picture of what's actually going on. I help you build that picture, and find the next step small enough to actually take.</p>
+      <div class="hero-proof-strip">
+        <div class="hero-quote">
+          "Before this, I was going full speed — just sitting on the roof of the car instead of behind the wheel."
+          <cite>— Reidar, individual coaching</cite>
+        </div>
+        <div class="hero-quote">
+          "The courage to cut through the noise and focus on what actually mattered."
+          <cite>— Kriti Paliwal, Data Science Manager, Securitas</cite>
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#start" class="btn-primary">For myself</a>
+        <a href="#start" class="btn-ghost">For my team</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/aleksander.jpg" alt="Aleksander Gąssowski">
     </div>
   </div>
 
