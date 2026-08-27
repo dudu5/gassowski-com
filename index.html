@@ -133,42 +133,41 @@
     filter: grayscale(15%);
   }
 
-  .hero-proof-strip {
-    margin: 24px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .hero-quote {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    padding-left: 14px;
-    border-left: 1px solid var(--text-ghost);
-  }
-
-  .hero-quote cite {
-    display: block;
-    font-size: 12px;
-    font-style: normal;
-    color: var(--text-subtle);
-    margin-top: 4px;
-  }
 
   .hero-ctas {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 16px;
     margin-top: 8px;
   }
 
-  .hero-ctas a {
-    flex: 1;
-    text-align: center;
+  .hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hero-cta-row a {
+    flex-shrink: 0;
     white-space: nowrap;
     padding: 13px 28px;
     margin: 0;
+    width: 160px;
+    text-align: center;
+  }
+
+  .hero-cta-quote {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .hero-cta-quote cite {
+    display: block;
+    font-size: 11px;
+    font-style: normal;
+    color: var(--text-subtle);
+    margin-top: 3px;
   }
 
   /* ── TYPOGRAPHY ── */
@@ -506,11 +505,9 @@
       order: 2;
     }
 
-    /* On mobile: headline → subhead → CTAs → proof */
-    .hero-ctas { order: 3; margin-top: 24px; margin-bottom: 0; }
-    .hero-proof-strip { order: 4; margin-top: 28px; }
-    .hero-ctas .btn-primary,
-    .hero-ctas .btn-ghost { width: 100%; text-align: center; margin-right: 0; }
+    .hero-ctas { margin-top: 24px; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero-cta-row a { width: 100%; text-align: center; }
 
     .section-wrap { padding: 80px 24px; }
 
@@ -549,17 +546,19 @@
       <h1>Stuck is mostly not a lack of effort. It's a missing picture.</h1>
       <p style="font-size:17px; color:var(--text-muted); line-height:1.7; margin-bottom:0;">Busy doesn't mean moving. Active doesn't mean aligned. I help you draw the map — of yourself, or of your team — and find the next step small enough to actually take.</p>
       <div class="hero-ctas">
-        <a href="#start" class="btn-primary">For myself</a>
-        <a href="#start" class="btn-ghost">For my team</a>
-      </div>
-      <div class="hero-proof-strip">
-        <div class="hero-quote">
-          "Before this, I was going full speed — just sitting on the roof of the car instead of behind the wheel."
-          <cite>— Reidar, individual coaching</cite>
+        <div class="hero-cta-row">
+          <a href="#start" class="btn-primary">For myself</a>
+          <div class="hero-cta-quote">
+            "Before this, I was going full speed — just sitting on the roof of the car instead of behind the wheel."
+            <cite>— Reidar, individual coaching</cite>
+          </div>
         </div>
-        <div class="hero-quote">
-          "The courage to cut through the noise and focus on what actually mattered."
-          <cite>— Kriti Paliwal, Data Science Manager, Securitas</cite>
+        <div class="hero-cta-row">
+          <a href="#start" class="btn-ghost">For my team</a>
+          <div class="hero-cta-quote">
+            "The courage to cut through the noise and focus on what actually mattered."
+            <cite>— Kriti Paliwal, Data Science Manager, Securitas</cite>
+          </div>
         </div>
       </div>
     </div>
