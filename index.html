@@ -54,6 +54,25 @@
     position: relative;
   }
 
+  #bg-layer {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    z-index: -2;
+  }
+
+  #bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.76);
+    z-index: -1;
+    pointer-events: none;
+  }
+
   @keyframes pulse-hint {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
@@ -111,6 +130,7 @@
     border-radius: 50%;
     opacity: 0.85;
     filter: grayscale(15%);
+    cursor: pointer;
   }
 
 
@@ -119,7 +139,6 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
-    margin-left: 27px;
   }
 
   .hero-quote {
@@ -144,7 +163,6 @@
     flex-direction: row;
     gap: 12px;
     margin-top: 32px;
-    margin-left: 27px;
   }
 
   .hero-ctas a {
@@ -407,56 +425,133 @@
   .who-table tr:last-child td { border-bottom: none; }
 
   /* ── START SECTION ── */
-  .start-offering {
-    border: 1px solid var(--text-ghost);
-    border-radius: 12px;
-    padding: 32px;
-    margin: 32px 0;
+  /* ── TIERS ── */
+  .tiers {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
   }
 
-  .offering-title {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--text-bright);
+  .tier {
+    padding: 32px 0 32px 24px;
+    border-left: 2px solid var(--text-ghost);
+    position: relative;
+  }
+
+  .tier + .tier {
+    margin-top: 8px;
+  }
+
+  .tier-white { border-left-color: var(--text-bright); }
+  .tier-teal  { border-left-color: var(--color-teal); }
+  .tier-blue  { border-left-color: var(--color-blue); }
+
+  .tier-white .tier-title { color: var(--text-bright); }
+  .tier-teal  .tier-title { color: var(--color-teal); }
+  .tier-blue  .tier-title { color: var(--color-blue); }
+
+  .tier-label {
+    font-size: 11px;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     margin-bottom: 8px;
   }
 
-  .offering-detail {
+  .tier-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+  }
+
+  .tier-detail {
     font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
+    color: var(--text-subtle);
+    margin-bottom: 16px;
   }
 
-  .offering-bullets {
+  .tier-bullets {
     list-style: none;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  .offering-bullets li {
+  .tier-bullets li {
     font-size: 15px;
     color: var(--text-visible);
-    padding: 8px 0;
-    border-bottom: 1px solid var(--text-ghost);
     display: flex;
     gap: 10px;
     align-items: flex-start;
+    line-height: 1.5;
   }
 
-  .offering-bullets li:last-child { border-bottom: none; }
-
-  .offering-bullets li::before {
+  .tier-bullets li::before {
     content: '→';
-    color: var(--color-teal);
     flex-shrink: 0;
-    margin-top: 1px;
   }
 
-  .start-closing {
+  .tier-white .tier-bullets li::before { color: var(--text-bright); }
+  .tier-teal  .tier-bullets li::before { color: var(--color-teal); }
+  .tier-blue  .tier-bullets li::before { color: var(--color-blue); }
+
+  /* ── ENGAGE FORM ── */
+  .engage-form {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--text-ghost);
+  }
+
+  .engage-form h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+  }
+
+  .engage-form p {
     font-size: 14px;
     color: var(--text-subtle);
-    font-style: italic;
-    margin-top: 32px;
+    margin-bottom: 24px;
     line-height: 1.6;
+  }
+
+  .engage-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .engage-form input,
+  .engage-form textarea {
+    background: transparent;
+    border: 1px solid var(--text-ghost);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-visible);
+    width: 100%;
+    transition: border-color 0.2s;
+    resize: none;
+    outline: none;
+  }
+
+  .engage-form input::placeholder,
+  .engage-form textarea::placeholder {
+    color: var(--text-subtle);
+  }
+
+  .engage-form input:focus,
+  .engage-form textarea:focus {
+    border-color: var(--text-muted);
+  }
+
+  .engage-form button[type="submit"] {
+    align-self: flex-start;
+    margin-top: 4px;
   }
 
   /* ── BEFORE / AFTER ── */
@@ -537,6 +632,60 @@
     border-right: 1px solid var(--text-ghost);
   }
 
+  /* ── RIGHT CTA ── */
+  #right-cta {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding-right: 24px;
+  }
+
+  #right-cta.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #right-cta .rcta-label {
+    font-size: 10px;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    text-align: right;
+  }
+
+  #right-cta .rcta-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 0;
+    font-size: 13px;
+    font-family: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  #right-cta .rcta-btn:hover { opacity: 0.7; }
+
+  #right-cta .rcta-primary {
+    color: var(--color-teal);
+    font-weight: 500;
+  }
+
+  #right-cta .rcta-ghost {
+    color: var(--text-bright);
+  }
+
   .nav-links {
     position: absolute;
     top: 50%;
@@ -561,6 +710,7 @@
     border-radius: 50%;
     object-fit: cover;
     object-position: top;
+    cursor: pointer;
   }
 
   .nav-identity-name {
@@ -770,6 +920,22 @@
 </head>
 <body>
 
+<div id="bg-layer"></div>
+<div id="bg-overlay"></div>
+
+<!-- RIGHT CTA -->
+<div id="right-cta">
+  <div class="rcta-label">Take the next step</div>
+  <a href="#start" class="rcta-btn rcta-primary">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+    For yourself
+  </a>
+  <a href="#start" class="rcta-btn rcta-ghost">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><circle cx="6.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><circle cx="12.5" cy="3.5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M1 13c0-3.038 2.462-5.5 5.5-5.5.9 0 1.75.217 2.5.601" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M8 13c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+    For your team
+  </a>
+</div>
+
 <!-- CONTENT -->
 <div id="content">
 
@@ -782,17 +948,17 @@
     </div>
     <div class="hero-text">
       <h1>Stuck is mostly <span style="color:var(--color-red); text-decoration:underline; text-decoration-color:rgba(233,119,135,0.4); text-underline-offset:6px; text-decoration-thickness:2px;">not</span> a lack of effort.<br> It's a missing picture.</h1>
-      <div class="hero-bullets" style="display:flex; flex-direction:column; gap:4px; margin-bottom:0; margin-left:24px;">
+      <div class="hero-bullets" style="display:flex; flex-direction:column; gap:4px; margin-bottom:0;">
         <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Busy doesn't mean moving. Active doesn't mean aligned.</span></div>
-        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>We draw a map you can navigate from - of you, or of the team.</span></div>
-        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>And find the next step small enough to actually take.</span></div>
+        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>I enable you to draw a map you can navigate from - of you, or of the team.</span></div>
+        <div style="display:flex; gap:10px; font-size:17px; color:var(--text-muted); line-height:1.6;"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>We make the situation visible, find what actually matters, and identify the next move.</span></div>
       </div>
       <div class="hero-proof-strip">
         <div class="hero-quote">"Before this, I was going full speed - just sitting on the roof of the car instead of behind the wheel."<cite>Reidar, individual coaching</cite></div>
         <div class="hero-quote">"The courage to cut through the noise and focus on what actually mattered."<cite>Kriti Paliwal, Data Science Manager, Securitas</cite></div>
       </div>
       <div class="hero-ctas">
-        <a href="#before-after" class="btn-primary">How it works</a>
+        <a href="#before-after" class="btn-ghost">How it works</a>
       </div>
     </div>
     </div>
@@ -823,8 +989,8 @@
           <div class="ba-col">
             <div class="ba-col-title" style="color:var(--color-teal);">After</div>
             <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Effort that builds instead of circling.</span></div>
-            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>A critic you can hear without handing it the wheel.</span></div>
-            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Moving toward what actually makes me feel alive.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>A critic you hear without handing it the wheel.</span></div>
+            <div class="ba-bullet"><span style="color:var(--color-teal); flex-shrink:0;">→</span><span>Moving toward what makes me feel alive.</span></div>
           </div>
         </div>
         <div style="margin-top: 24px; text-align: center; font-size: 14px; color: var(--text-muted); font-style: italic; line-height: 1.6;">"A quiet certainty that there is a path that belongs only to me, and that I can choose it."<cite style="display:block; font-size:12px; font-style:normal; color:var(--text-subtle); margin-top:6px;">Özgun, workshop</cite></div>
@@ -834,7 +1000,7 @@
       <div class="ba-block">
         <div class="ba-block-header">
           <svg width="18" height="16" viewBox="0 0 18 16" fill="none"><circle cx="6.5" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1 15c0-3.314 2.686-6 5.5-6 .95 0 1.85.23 2.63.636" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M8.5 15c0-3.038 2.015-5.5 4.5-5.5s4.5 2.462 4.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Team
+          Your team
         </div>
         <div class="ba-cols">
           <div class="ba-col">
@@ -968,6 +1134,15 @@
       </div>
     </div>
 
+    <!-- Slide 5 -->
+    <div style="margin-bottom: 48px;">
+      <img src="Images/Vector_Scattered_transparent.svg" alt="" class="expandable-img" style="width:100%; display:block; margin-bottom:24px;">
+      <div class="beat"><div class="beat-num">05</div><div class="beat-text"><span class="beat-headline">This same map works at any scale.</span><em>A person, a team, a whole company. "Me" is whatever you're pointing the map at. "Environment" is everything outside that line - a market, a boss, the rest of the org. Pick your scope, then ask the same questions.</em><em style="display:block; margin-top:12px;">A group's output isn't just the sum of its people. It's the sum of their direction. Effort that pulls in different directions doesn't add up - it cancels out. Alignment isn't a soft goal. It's where the energy stops leaking.</em></div></div>
+      <div style="padding-left:34px; margin-top:24px;">
+        <div class="hero-quote">"He enabled the shift into simple terms, using a shared framework. That's what created real team alignment."<cite>Donna Montnémery, Product Manager, Securitas</cite></div>
+      </div>
+    </div>
+
   </div>
 
   <hr class="section-divider">
@@ -1001,7 +1176,7 @@
 
     <!-- 04 -->
     <div style="margin-bottom: 48px;">
-      <div class="beat"><div class="beat-num">04</div><div class="beat-text"><span class="beat-headline">The honesty check.</span><em>Do you reflect - structured, and continuously? Not just when something goes wrong.<br><br>Do you reflect on what you feel, not only on what you think happened?</em></div></div>
+      <div class="beat"><div class="beat-num">04</div><div class="beat-text"><span class="beat-headline">The honesty check.</span><em style="display:flex; align-items:center; gap:6px; margin-top:8px; margin-bottom:4px; color:var(--text-subtle); font-size:12px;"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><circle cx="7" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1 15c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Individual</em><em>Do you reflect - structured, and continuously? Not just when something goes wrong.<br><br>Do you reflect on what you feel, not only on what you think happened?</em><em style="display:flex; align-items:center; gap:6px; margin-top:16px; margin-bottom:4px; color:var(--text-subtle); font-size:12px;"><svg width="18" height="16" viewBox="0 0 18 16" fill="none"><circle cx="6.5" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><circle cx="13" cy="4.5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M1 15c0-3.314 2.686-6 5.5-6 .95 0 1.85.23 2.63.636" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M8.5 15c0-3.038 2.015-5.5 4.5-5.5s4.5 2.462 4.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>My Team</em><em>Does the team reflect - structured, and continuously? Not just in a post-mortem, after something's already broken.<br><br>Does the room make space for what people feel, not only what happened on paper?</em></div></div>
     </div>
 
     <div class="hero-ctas">
@@ -1014,27 +1189,56 @@
 
   <!-- 5. START -->
   <div id="start" class="section-wrap">
-    <div class="section-label">Start</div>
-    <h2>Begin here</h2>
+    <div class="section-label">The next step</div>
+    <h2>Wherever you start, start.</h2>
 
-    <div class="start-offering">
-      <div class="offering-title">A conversation</div>
-      <div class="offering-detail">60–75 minutes · Paid</div>
-      <ul class="offering-bullets">
-        <li>A first picture of where you are - need vs want</li>
-        <li>One direction</li>
-        <li>One step you can take this week</li>
-      </ul>
-      <a href="mailto:aleksander@gassowski.com" class="btn-primary">Start a conversation</a>
+    <p style="font-size:16px; color:var(--text-muted); line-height:1.8; margin-top:24px;">Not a ladder to climb in order. Progress isn't a straight line - it's consistency, plus every step adding to the picture, even the ones that don't feel like progress. Each step counts.</p>
+
+    <div class="tiers">
+
+      <!-- Tier 1 -->
+      <div class="tier tier-white">
+        <div class="tier-label">Tier 1</div>
+        <div class="tier-title">Start free</div>
+        <ul class="tier-bullets">
+          <li><span><strong>Follow</strong> — content, ongoing, no ask <span style="color:var(--text-subtle); font-size:12px;">(coming soon)</span></span></li>
+          <li><span><strong>Get your current picture</strong> — free map, one-time snapshot</span></li>
+        </ul>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="tier tier-teal">
+        <div class="tier-label">Tier 2</div>
+        <div class="tier-title">Do the work</div>
+        <ul class="tier-bullets">
+          <li><span><strong>Alone</strong> — 1:1 coaching (incl. leaders/managers)</span></li>
+          <li><span><strong>With strangers doing the same thing</strong> — workshops, events, authentic.me, leader mastermind</span></li>
+        </ul>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="tier tier-blue">
+        <div class="tier-label">Tier 3</div>
+        <div class="tier-title">Work with your people</div>
+        <ul class="tier-bullets">
+          <li><span><strong>You + team</strong> — Building Shared Perspectives (see the system)</span></li>
+          <li><span><strong>You + team</strong> — Move the room (Human Problem / Authentic Connections org)</span></li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="start-offering" style="margin-top:16px;">
-      <div class="offering-title">Say what you're circling</div>
-      <div class="offering-detail">Name · What you're working on · Individual / Pair / Team</div>
-      <a href="mailto:aleksander@gassowski.com" class="btn-ghost">Send a note</a>
+    <div class="engage-form">
+      <h3>Engage in another way</h3>
+      <p>Say what you're circling and I'll come back to you.</p>
+      <form class="form-row" action="mailto:aleksander@gassowski.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="context" placeholder="What you're working on — individual, pair, or team">
+        <textarea name="message" rows="4" placeholder="What's going on"></textarea>
+        <button type="submit" style="align-self:flex-start; background:transparent; border:1px solid var(--text-bright); color:var(--text-bright); padding:10px 20px; border-radius:6px; font-size:14px; font-family:inherit; cursor:pointer; transition:opacity 0.2s;">Send</button>
+      </form>
     </div>
 
-    <p class="start-closing">I don't sell a finished self. I sit with you until the picture is good enough to move.</p>
   </div>
 
   <!-- FOOTER -->
@@ -1107,6 +1311,19 @@
   scrollContainer.addEventListener('scroll', updateActiveNav, { passive: true });
   updateActiveNav();
 
+  // Right CTA visibility — show when before-after scrolls fully out of view
+  const rightCta = document.getElementById('right-cta');
+  const beforeAfterEl = document.getElementById('before-after');
+
+  function updateRightCta() {
+    const containerTop = scrollContainer.getBoundingClientRect().top;
+    const bottom = beforeAfterEl.getBoundingClientRect().bottom - containerTop;
+    rightCta.classList.toggle('visible', bottom <= 0);
+  }
+
+  scrollContainer.addEventListener('scroll', updateRightCta, { passive: true });
+  updateRightCta();
+
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -1135,6 +1352,35 @@
   document.getElementById('film-trigger').addEventListener('click', () => {
     window.open('https://youtu.be/SZco5EJncVc', '_blank');
   });
+
+  // Background image cycler
+  const bgImages = [
+    null,
+    'Images/Background/Background1.png',
+    'Images/Background/Background2.png',
+    'Images/Background/Background3.png',
+    'Images/Background/Background4.png',
+    'Images/Background/Background5.png',
+    'Images/Background/Background6.png',
+    'Images/Background/Background7.png',
+    'Images/Background/Background8.png',
+  ];
+  let bgIdx = 0;
+  const bgLayer = document.getElementById('bg-layer');
+
+  function cycleBg() {
+    bgIdx = (bgIdx + 1) % bgImages.length;
+    const src = bgImages[bgIdx];
+    bgLayer.style.opacity = '0';
+    setTimeout(() => {
+      bgLayer.style.backgroundImage = src ? `url('${src}')` : 'none';
+      bgLayer.style.opacity = '1';
+    }, 300);
+  }
+
+  document.querySelector('.hero-photo img').addEventListener('click', cycleBg);
+
+  document.querySelector('.nav-identity img').addEventListener('click', cycleBg);
 </script>
 
 </body>
